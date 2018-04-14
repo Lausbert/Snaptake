@@ -12,7 +12,19 @@
 		8D8A726920824F840021D344 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726720824F840021D344 /* Main.storyboard */; };
 		8D8A726B20824F850021D344 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726A20824F850021D344 /* Assets.xcassets */; };
 		8D8A726E20824F850021D344 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726C20824F850021D344 /* LaunchScreen.storyboard */; };
+		8D8A728C208252340021D344 /* SnaptakeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A728B208252340021D344 /* SnaptakeUITests.swift */; };
+		8D8A7294208252440021D344 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A7293208252440021D344 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D8A728E208252340021D344 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D8A725820824F840021D344 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D8A725F20824F840021D344;
+			remoteInfo = Snaptake;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8D8A726020824F840021D344 /* Snaptake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptake.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +34,21 @@
 		8D8A726A20824F850021D344 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D8A726D20824F850021D344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D8A726F20824F850021D344 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D8A7289208252340021D344 /* SnaptakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnaptakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D8A728B208252340021D344 /* SnaptakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnaptakeUITests.swift; sourceTree = "<group>"; };
+		8D8A728D208252340021D344 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D8A7293208252440021D344 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8D8A725D20824F840021D344 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D8A7286208252340021D344 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				8D8A726220824F840021D344 /* Snaptake */,
+				8D8A728A208252340021D344 /* SnaptakeUITests */,
 				8D8A726120824F840021D344 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				8D8A726020824F840021D344 /* Snaptake.app */,
+				8D8A7289208252340021D344 /* SnaptakeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,6 +87,16 @@
 				8D8A726F20824F850021D344 /* Info.plist */,
 			);
 			path = Snaptake;
+			sourceTree = "<group>";
+		};
+		8D8A728A208252340021D344 /* SnaptakeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8D8A728B208252340021D344 /* SnaptakeUITests.swift */,
+				8D8A7293208252440021D344 /* SnapshotHelper.swift */,
+				8D8A728D208252340021D344 /* Info.plist */,
+			);
+			path = SnaptakeUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +119,24 @@
 			productReference = 8D8A726020824F840021D344 /* Snaptake.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D8A7288208252340021D344 /* SnaptakeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D8A7292208252340021D344 /* Build configuration list for PBXNativeTarget "SnaptakeUITests" */;
+			buildPhases = (
+				8D8A7285208252340021D344 /* Sources */,
+				8D8A7286208252340021D344 /* Frameworks */,
+				8D8A7287208252340021D344 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D8A728F208252340021D344 /* PBXTargetDependency */,
+			);
+			name = SnaptakeUITests;
+			productName = SnaptakeUITests;
+			productReference = 8D8A7289208252340021D344 /* SnaptakeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -96,6 +149,10 @@
 				TargetAttributes = {
 					8D8A725F20824F840021D344 = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					8D8A7288208252340021D344 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 8D8A725F20824F840021D344;
 					};
 				};
 			};
@@ -113,6 +170,7 @@
 			projectRoot = "";
 			targets = (
 				8D8A725F20824F840021D344 /* Snaptake */,
+				8D8A7288208252340021D344 /* SnaptakeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +186,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D8A7287208252340021D344 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -140,7 +205,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D8A7285208252340021D344 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D8A728C208252340021D344 /* SnaptakeUITests.swift in Sources */,
+				8D8A7294208252440021D344 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D8A728F208252340021D344 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D8A725F20824F840021D344 /* Snaptake */;
+			targetProxy = 8D8A728E208252340021D344 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8D8A726720824F840021D344 /* Main.storyboard */ = {
@@ -312,6 +394,44 @@
 			};
 			name = Release;
 		};
+		8D8A7290208252340021D344 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6N3X97ZLM;
+				INFOPLIST_FILE = SnaptakeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.lausbert.SnaptakeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Snaptake;
+			};
+			name = Debug;
+		};
+		8D8A7291208252340021D344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6N3X97ZLM;
+				INFOPLIST_FILE = SnaptakeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.lausbert.SnaptakeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Snaptake;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -329,6 +449,15 @@
 			buildConfigurations = (
 				8D8A727320824F850021D344 /* Debug */,
 				8D8A727420824F850021D344 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D8A7292208252340021D344 /* Build configuration list for PBXNativeTarget "SnaptakeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D8A7290208252340021D344 /* Debug */,
+				8D8A7291208252340021D344 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
