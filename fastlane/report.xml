@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.019181">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: cd .. &amp;&amp; fastlane snapshot --concurrent_simulators false &amp;&amp; cd fastlane" time="66.093077">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: ffmpeg -ss '00:00:03.054' -i 'screenshots/en-US/iPhone 8-testExample.mp4' -c:v copy -r 30 'screenshots/en-US/iPhone 8-testExample-trimmed.mp4'" time="0.372822">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: ffmpeg  -i 'screenshots/en-US/iPhone 8-testExample-trimmed.mp4' -ar 44100 -ab 256k -r 30 -crf 22 -profile:v main -pix_fmt yuv420p -y -max_muxing_queue_size 1000 'screenshots/en-US/iPhone 8-testExample-final.mp4'" time="0.332201">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

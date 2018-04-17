@@ -30,9 +30,7 @@ class SnaptakeUITests: XCTestCase {
     
     func testExample() {
         snaptake("testExample") {
-            sleep(1)
             XCUIApplication().buttons["button"].tap()
-            sleep(1)
         }
     }
     

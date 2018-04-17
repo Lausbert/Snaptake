@@ -235,7 +235,7 @@ open class Snapshot: NSObject {
         XCUIDevice.shared.orientation = .landscapeLeft
         sleep(2)
         XCUIDevice.shared.orientation = .portrait
-        let trimmingTime = -start.timeIntervalSinceNow
+        let trimmingTime = -start.timeIntervalSinceNow - 2
         
         let hours = Int(trimmingTime)/3600
         let minutes = (Int(trimmingTime)/60)%60
@@ -371,4 +371,4 @@ private extension CGFloat {
 
 // Please don't remove the lines below
 // They are used to detect outdated configuration files
-// SnapshotHelperVersion [1.9]
+// SnapshotHelperVersion [1.10]
