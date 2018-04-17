@@ -31,11 +31,27 @@ func snapshot(_ name: String, waitForLoadingIndicator: Bool) {
     }
 }
 
+func snaptake(_ name: String, waitForLoadingIndicator: Bool, plot: ()->()) {
+    if waitForLoadingIndicator {
+        Snapshot.snaptake(name, plot: plot)
+    } else {
+        Snapshot.snaptake(name, timeWaitingForIdle: 0, plot: plot)
+    }
+}
+
 /// - Parameters:
 ///   - name: The name of the snapshot
 ///   - timeout: Amount of seconds to wait until the network loading indicator disappears. Pass `0` if you don't want to wait.
 func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
     Snapshot.snapshot(name, timeWaitingForIdle: timeout)
+}
+
+/// - Parameters:
+///   - name: The name of the snaptake
+///   - timeout: Amount of seconds to wait until the network loading indicator disappears. Pass `0` if you don't want to wait.
+///   - plot: Plot which should be recorded.
+func snaptake(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20, plot: ()->()) {
+    Snapshot.snaptake(name, timeWaitingForIdle: timeout, plot: plot)
 }
 
 enum SnapshotError: Error, CustomDebugStringConvertible {
@@ -171,6 +187,88 @@ open class Snapshot: NSObject {
                 print(error)
             }
         #endif
+    }
+    
+    open class func snaptake(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20, plot: ()->()) {
+        
+        guard let recordingFlagPath = snaptakeStart(name, timeWaitingForIdle: timeout) else { return }
+        
+        snaptakeSetTrimmingFlag()
+        
+        plot()
+        
+        snaptakeStop(recordingFlagPath)
+        
+    }
+    
+    class func snaptakeStart(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) -> URL? {
+        if timeout > 0 {
+            waitForLoadingIndicatorToDisappear(within: timeout)
+        }
+        
+        print("snaptake: \(name)")
+        
+        sleep(1) // Waiting for the animation to be finished (kind of)
+        
+        #if os(OSX)
+        XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
+        #else
+        guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory else { return nil }
+        
+        let path = "screenshots/\(locale)/\(simulator)-\(name).mp4"
+        let recordingFlagPath = screenshotsDir.appendingPathComponent("recordingFlag.txt")
+        
+        do {
+            try path.write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
+        } catch let error {
+            print("Problem setting recording flag: \(recordingFlagPath)")
+            print(error)
+        }
+        #endif
+        return recordingFlagPath
+    }
+    
+    class func snaptakeSetTrimmingFlag() {
+        
+        let start = Date()
+        sleep(2)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        sleep(2)
+        XCUIDevice.shared.orientation = .portrait
+        let trimmingTime = -start.timeIntervalSinceNow
+        
+        let hours = Int(trimmingTime)/3600
+        let minutes = (Int(trimmingTime)/60)%60
+        let seconds = Int(trimmingTime)%60
+        let milliseconds = Int((trimmingTime - Double(Int(trimmingTime))) * 1000)
+        let trimmingTimeString = String(format:"%02i:%02i:%02i.%03i", hours, minutes, seconds, milliseconds)
+        
+        #if os(OSX)
+        XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
+        #else
+        guard let screenshotsDir = screenshotsDirectory else { return }
+        
+        let trimmingFlagPath = screenshotsDir.appendingPathComponent("trimmingFlag.txt")
+        
+        do {
+            try trimmingTimeString.write(to: trimmingFlagPath, atomically: false, encoding: String.Encoding.utf8)
+        } catch let error {
+            print("Problem setting recording flag: \(trimmingFlagPath)")
+            print(error)
+        }
+        
+        #endif
+    }
+    
+    class func snaptakeStop(_ recordingFlagPath: URL) {
+        let fileManager = FileManager.default
+        
+        do {
+            try fileManager.removeItem(at: recordingFlagPath)
+        } catch let error {
+            print("Problem removing recording flag: \(recordingFlagPath)")
+            print(error)
+        }
     }
 
     class func waitForLoadingIndicatorToDisappear(within timeout: TimeInterval) {
