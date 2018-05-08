@@ -252,4 +252,4 @@ You want to know what is possible with this procedure?
 
 You want to solve similarly exciting technical questions?
 
-**Join as at <a href="http://www.apploft.de/karriere/">Apploft</a>!**
+**Join us at <a href="http://www.apploft.de/karriere/">apploft</a>!**
