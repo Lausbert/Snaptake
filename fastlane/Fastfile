@@ -29,26 +29,40 @@ platform :ios do
         File.delete(mp4_file_path)
       end
 
+      simulatorNamePath = '~/Library/Caches/tools.fastlane'
+      cacheDirectory = '~/Library/Caches/tools.fastlane/screenshots'
+
       # Ensure that caching folder for screenshots and recording flags exists
-      Dir.mkdir(File.expand_path('~/Library/Caches/tools.fastlane/screenshots')) unless Dir.exist?(File.expand_path('~/Library/Caches/tools.fastlane/screenshots'))
+      Dir.mkdir(File.expand_path(cacheDirectory)) unless Dir.exist?(File.expand_path(cacheDirectory))
 
       # Setup listeners for starting and ending recording
       fastlane_require 'listen'
       path = nil
       process = nil
+      name = nil
       trimming_time_dictionary = {}
-      recordingListener = Listen.to(File.expand_path('~/Library/Caches/tools.fastlane/screenshots'), only: /\.txt$/) do |modified, added, removed|
+      recordingListener = Listen.to(File.expand_path(cacheDirectory), only: /\.txt$/) do |modified, added, removed|
         if (!added.empty?) && File.basename(added.first) == 'recordingFlag.txt'
           recording_flag_path = added.first
+          expanded = File.expand_path("simulator-name.txt", simulatorNamePath)
+          name = File.read(expanded)
           path = File.read(recording_flag_path)
-          process = IO.popen("xcrun simctl io booted recordVideo '#{path}'") # Start recording of current simulator to path determined in recordingFlag.txt
+          # Start recording of current simulator to path determined in recordingFlag.txt
+          expandedPath = File.expand_path(path)
+          process = IO.popen("xcrun simctl --set testing io '#{name}' recordVideo '#{expandedPath}' --force")
+
+          puts "Starting recording for #{name} #{process.pid} to #{expandedPath}"
         end
         if (!removed.empty?) && File.basename(removed.first) == 'recordingFlag.txt'
           pid = process.pid
-          Process.kill("INT", pid) # Stop recording by killing process with id pid
-          trimming_flag_path = File.expand_path('~/Library/Caches/tools.fastlane/screenshots/trimmingFlag.txt')
+          # Stop recording by killing process with id pid
+          Process.kill("INT", pid)
+          trimming_flag_path = File.expand_path(cacheDirectory + '/trimmingFlag.txt')
           trimming_time = File.read(trimming_flag_path)
-          trimming_time_dictionary[path] = trimming_time # Storing trimming time determined in trimmingFlag.txt for recorded video (necessary due to initial black simulator screen after starting recording)
+          # Storing trimming time determined in trimmingFlag.txt for recorded video (necessary due to initial black simulator screen after starting recording)
+          trimming_time_dictionary[path] = trimming_time
+
+          puts "Finished recording for #{name} #{pid}"
         end
       end
 

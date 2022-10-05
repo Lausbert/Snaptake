@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34173A706F488AD259900A39 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 341730F475918518DF10427A /* README.md */; };
 		8D8A726420824F840021D344 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A726320824F840021D344 /* AppDelegate.swift */; };
 		8D8A726620824F840021D344 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A726520824F840021D344 /* ViewController.swift */; };
 		8D8A726920824F840021D344 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726720824F840021D344 /* Main.storyboard */; };
 		8D8A726B20824F850021D344 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726A20824F850021D344 /* Assets.xcassets */; };
 		8D8A726E20824F850021D344 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726C20824F850021D344 /* LaunchScreen.storyboard */; };
 		8D8A728C208252340021D344 /* SnaptakeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A728B208252340021D344 /* SnaptakeUITests.swift */; };
-		8D8A7294208252440021D344 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A7293208252440021D344 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		341730F475918518DF10427A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7CF46E6C28EE02E800674B91 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		8D8A726020824F840021D344 /* Snaptake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8A726320824F840021D344 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D8A726520824F840021D344 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +39,6 @@
 		8D8A7289208252340021D344 /* SnaptakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnaptakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8A728B208252340021D344 /* SnaptakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnaptakeUITests.swift; sourceTree = "<group>"; };
 		8D8A728D208252340021D344 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D8A7293208252440021D344 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +62,11 @@
 		8D8A725720824F840021D344 = {
 			isa = PBXGroup;
 			children = (
+				7CF46E6C28EE02E800674B91 /* fastlane */,
 				8D8A726220824F840021D344 /* Snaptake */,
 				8D8A728A208252340021D344 /* SnaptakeUITests */,
 				8D8A726120824F840021D344 /* Products */,
+				341730F475918518DF10427A /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				8D8A728B208252340021D344 /* SnaptakeUITests.swift */,
-				8D8A7293208252440021D344 /* SnapshotHelper.swift */,
 				8D8A728D208252340021D344 /* Info.plist */,
 			);
 			path = SnaptakeUITests;
@@ -202,6 +204,7 @@
 			files = (
 				8D8A726620824F840021D344 /* ViewController.swift in Sources */,
 				8D8A726420824F840021D344 /* AppDelegate.swift in Sources */,
+				34173A706F488AD259900A39 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D8A728C208252340021D344 /* SnaptakeUITests.swift in Sources */,
-				8D8A7294208252440021D344 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
