@@ -213,13 +213,22 @@ open class Snapshot: NSObject {
         #if os(OSX)
         XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
         #else
-        guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory else { return nil }
-        
-        let path = "screenshots/\(locale)/\(simulator)-\(name).mp4"
+        guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory, let cacheDirectory else { return nil }
+
+        let simulatorNamePath = cacheDirectory.appendingPathComponent("simulator-name.txt")
+
+        let simulatorTrimmed = simulator.replacingOccurrences(of: "Clone 1 of ", with: "")
+        let path = "./screenshots/\(locale)/\(simulatorTrimmed)-\(name).mp4"
         let recordingFlagPath = screenshotsDir.appendingPathComponent("recordingFlag.txt")
-        
+
         do {
-            try path.write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
+            let localeURL = screenshotsDir.appending(component: locale)
+            if !FileManager.default.fileExists(atPath: localeURL.path) {
+                try FileManager.default.createDirectory(at: localeURL, withIntermediateDirectories: true)
+            }
+
+            try simulator.trimmingCharacters(in: .newlines).write(to: simulatorNamePath, atomically: false, encoding: .utf8)
+            try path.trimmingCharacters(in: .newlines).write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
         } catch let error {
             print("Problem setting recording flag: \(recordingFlagPath)")
             print(error)
@@ -261,10 +270,15 @@ open class Snapshot: NSObject {
     }
     
     class func snaptakeStop(_ recordingFlagPath: URL) {
+        guard let screenshotsDir = cacheDirectory else { return }
+
         let fileManager = FileManager.default
+
+        let simulatorNamePath = screenshotsDir.appendingPathComponent("simulator-name.txt")
         
         do {
             try fileManager.removeItem(at: recordingFlagPath)
+            try fileManager.removeItem(at: simulatorNamePath)
         } catch let error {
             print("Problem removing recording flag: \(recordingFlagPath)")
             print(error)
