@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		34173A706F488AD259900A39 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 341730F475918518DF10427A /* README.md */; };
+		7C30150E28EF157C0079BF6D /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C30150D28EF157C0079BF6D /* SnapshotHelper.swift */; };
 		8D8A726420824F840021D344 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A726320824F840021D344 /* AppDelegate.swift */; };
 		8D8A726620824F840021D344 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A726520824F840021D344 /* ViewController.swift */; };
 		8D8A726920824F840021D344 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A726720824F840021D344 /* Main.storyboard */; };
@@ -28,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		341730F475918518DF10427A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7C30150D28EF157C0079BF6D /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		7CF46E6C28EE02E800674B91 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		8D8A726020824F840021D344 /* Snaptake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8A726320824F840021D344 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		8D8A728A208252340021D344 /* SnaptakeUITests */ = {
 			isa = PBXGroup;
 			children = (
+				7C30150D28EF157C0079BF6D /* SnapshotHelper.swift */,
 				8D8A728B208252340021D344 /* SnaptakeUITests.swift */,
 				8D8A728D208252340021D344 /* Info.plist */,
 			);
@@ -204,7 +206,6 @@
 			files = (
 				8D8A726620824F840021D344 /* ViewController.swift in Sources */,
 				8D8A726420824F840021D344 /* AppDelegate.swift in Sources */,
-				34173A706F488AD259900A39 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D8A728C208252340021D344 /* SnaptakeUITests.swift in Sources */,
+				7C30150E28EF157C0079BF6D /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -351,7 +353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

@@ -221,11 +221,12 @@ open class Snapshot: NSObject {
         let path = "./screenshots/\(locale)/\(simulatorTrimmed)-\(name).mp4"
         let recordingFlagPath = screenshotsDir.appendingPathComponent("recordingFlag.txt")
 
-        if !FileManager.default.fileExists(atPath: screenshotsDir.path) {
-            try? FileManager.default.createDirectory(at: screenshotsDir, withIntermediateDirectories: true)
-        }
-
         do {
+            let localeURL = screenshotsDir.appending(component: locale)
+            if !FileManager.default.fileExists(atPath: localeURL.path) {
+                try FileManager.default.createDirectory(at: localeURL, withIntermediateDirectories: true)
+            }
+
             try simulator.trimmingCharacters(in: .newlines).write(to: simulatorNamePath, atomically: false, encoding: .utf8)
             try path.trimmingCharacters(in: .newlines).write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
         } catch let error {

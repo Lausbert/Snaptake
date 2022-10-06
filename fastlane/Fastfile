@@ -49,6 +49,11 @@ platform :ios do
           path = File.read(recording_flag_path)
           # Start recording of current simulator to path determined in recordingFlag.txt
           expandedPath = File.expand_path(path)
+
+          # Ensure that path exists
+          pathWithoutFileName = File.dirname(expandedPath)
+          FileUtils.mkdir_p(pathWithoutFileName) unless Dir.exist?(pathWithoutFileName)
+
           process = IO.popen("xcrun simctl --set testing io '#{name}' recordVideo '#{expandedPath}' --force")
 
           puts "Starting recording for #{name} #{process.pid} to #{expandedPath}"
