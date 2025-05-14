@@ -1,4 +1,12 @@
-Check out my <a href="http://lausbert.com">blog post</a>!
+---
+
+### 🚀 Give My Budgeting App a Try!
+
+Try out my budgeting app! 🙂 → [monee-app.com](https://monee-app.com)
+
+Just like all the content here on the site, it’s completely **free**—so I’d really appreciate a rating and a review!
+
+---
 
 # Snaptake
 
