@@ -103,13 +103,22 @@ class func snaptakeStart(_ name: String, timeWaitingForIdle timeout: TimeInterva
     #if os(OSX)
     XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
     #else
-    guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory else { return nil }
+    guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory, let cacheDirectory else { return nil }
 
-    let path = "screenshots/\(locale)/\(simulator)-\(name).mp4"
+    let simulatorNamePath = cacheDirectory.appendingPathComponent("simulator-name.txt")
+
+    let simulatorTrimmed = simulator.replacingOccurrences(of: "Clone 1 of ", with: "")
+    let path = "./videos/\(locale)/\(simulatorTrimmed)-\(name).mp4"
     let recordingFlagPath = screenshotsDir.appendingPathComponent("recordingFlag.txt")
 
     do {
-        try path.write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
+        let localeURL = screenshotsDir.appending(component: locale)
+        if !FileManager.default.fileExists(atPath: localeURL.path) {
+            try FileManager.default.createDirectory(at: localeURL, withIntermediateDirectories: true)
+        }
+        
+        try simulator.trimmingCharacters(in: .newlines).write(to: simulatorNamePath, atomically: false, encoding: .utf8)
+        try path.trimmingCharacters(in: .newlines).write(to: recordingFlagPath, atomically: false, encoding: String.Encoding.utf8)
     } catch let error {
         print("Problem setting recording flag: \(recordingFlagPath)")
         print(error)
@@ -159,10 +168,15 @@ After we called ```plot``` in ```snaptake``` we finally are going to stop record
 
 ```swift
 class func snaptakeStop(_ recordingFlagPath: URL) {
+    guard let screenshotsDir = cacheDirectory else { return }
+
+    let simulatorNamePath = screenshotsDir.appendingPathComponent("simulator-name.txt")
+
     let fileManager = FileManager.default
 
     do {
         try fileManager.removeItem(at: recordingFlagPath)
+        try fileManager.removeItem(at: simulatorNamePath)
     } catch let error {
         print("Problem removing recording flag: \(recordingFlagPath)")
         print(error)
@@ -196,26 +210,45 @@ lane :videos do |options|
     File.delete(mp4_file_path)
   end
 
+  simulatorNamePath = '~/Library/Caches/tools.fastlane'
+  cacheDirectory = '~/Library/Caches/tools.fastlane/screenshots'
+
   # Ensure that caching folder for screenshots and recording flags exists
-  Dir.mkdir(File.expand_path('~/Library/Caches/tools.fastlane/screenshots')) unless Dir.exist?(File.expand_path('~/Library/Caches/tools.fastlane/screenshots'))
+  Dir.mkdir(File.expand_path(cacheDirectory)) unless Dir.exist?(File.expand_path(cacheDirectory))
 
   # Setup listeners for starting and ending recording
   fastlane_require 'listen'
   path = nil
   process = nil
+  name = nil
   trimming_time_dictionary = {}
-  recordingListener = Listen.to(File.expand_path('~/Library/Caches/tools.fastlane/screenshots'), only: /\.txt$/) do |modified, added, removed|
+  recordingListener = Listen.to(File.expand_path(cacheDirectory), only: /\.txt$/) do |modified, added, removed|
     if (!added.empty?) && File.basename(added.first) == 'recordingFlag.txt'
       recording_flag_path = added.first
+      expanded = File.expand_path("simulator-name.txt", simulatorNamePath)
+      name = File.read(expanded)
       path = File.read(recording_flag_path)
-      process = IO.popen("xcrun simctl io booted recordVideo '#{path}'") # Start recording of current simulator to path determined in recordingFlag.txt
+      # Start recording of current simulator to path determined in recordingFlag.txt
+      expandedPath = File.expand_path(path)
+
+      # Ensure that path exists
+      pathWithoutFileName = File.dirname(expandedPath)
+      FileUtils.mkdir_p(pathWithoutFileName) unless Dir.exist?(pathWithoutFileName)
+      
+      process = IO.popen("xcrun simctl --set testing io '#{name}' recordVideo '#{expandedPath}' --force")
+
+      puts "Starting recording for #{name} #{process.pid} to #{expandedPath}"
     end
     if (!removed.empty?) && File.basename(removed.first) == 'recordingFlag.txt'
       pid = process.pid
-      Process.kill("INT", pid) # Stop recording by killing process with id pid
-      trimming_flag_path = File.expand_path('~/Library/Caches/tools.fastlane/screenshots/trimmingFlag.txt')
+      # Stop recording by killing process with id pid
+      Process.kill("INT", pid)
+      trimming_flag_path = File.expand_path(cacheDirectory + '/trimmingFlag.txt')
       trimming_time = File.read(trimming_flag_path)
-      trimming_time_dictionary[path] = trimming_time # Storing trimming time determined in trimmingFlag.txt for recorded video (necessary due to initial black simulator screen after starting recording)
+      # Storing trimming time determined in trimmingFlag.txt for recorded video (necessary due to initial black simulator screen after starting recording)
+      trimming_time_dictionary[path] = trimming_time
+
+      puts "Finished recording for #{name} #{pid}"
     end
   end
 
